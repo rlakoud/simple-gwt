@@ -18,7 +18,9 @@ package com.googlecode.simplegwt.client.ui.initialization;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * Event that occurs when an <code>Initializable</code> is initialized.
+ * Event that occurs when an {@link Initializable} is initialized.
+ * 
+ * @since 1.0
  */
 public class InitializationEvent extends GwtEvent<InitializationEventHandler> {
 	private static final Type<InitializationEventHandler> TYPE = new Type<InitializationEventHandler>();

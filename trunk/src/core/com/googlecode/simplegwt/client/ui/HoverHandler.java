@@ -26,9 +26,11 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A composite <code>Handler</code> that toggles a style name suffix on and off when the mouse
- * enters and leaves the target <code>Widget</code>. The default style name suffix is "hover" which
- * can be overridden using the <code>HoverHandler(String)</code> constructor.
+ * A composite handler that toggles a style name suffix when the mouse enters and leaves the target
+ * {@link Widget}. The default style name suffix of "hover" can be overridden using the
+ * {@link #HoverHandler(String)} constructor.
+ * 
+ * @since 1.0
  */
 public class HoverHandler implements MouseOverHandler, MouseOutHandler {
 	private final String styleSuffix;
@@ -36,7 +38,8 @@ public class HoverHandler implements MouseOverHandler, MouseOutHandler {
 	/**
 	 * Creates a new <code>HoverHandler</code> with the specified style suffix.
 	 * 
-	 * @param styleSuffix
+	 * @param styleSuffix the style name suffix to be applied to the <code>Widget</code> on mouse
+	 *            over
 	 */
 	public HoverHandler(final String styleSuffix) {
 		super();
@@ -78,14 +81,14 @@ public class HoverHandler implements MouseOverHandler, MouseOutHandler {
 	}
 
 	/**
-	 * Registers this <code>HoverHandler</code> as a <code>MouseOverHandler</code> and a
-	 * <code>MouseOutHandler</code> on the specified event source.
+	 * Registers this <code>HoverHandler</code> as a {@link MouseOverHandler} and a
+	 * {@link MouseOutHandler} on the specified {@link Widget}.
 	 * 
-	 * @param <S>
-	 * @param eventSource
+	 * @param <H> artificial type comprising the required event hooks
+	 * @param widget the {@link Widget} context for the popup
 	 */
-	public <S extends HasMouseOverHandlers & HasMouseOutHandlers> void registerOn(S eventSource) {
-		eventSource.addMouseOverHandler(this);
-		eventSource.addMouseOutHandler(this);
+	public <H extends HasMouseOverHandlers & HasMouseOutHandlers> void registerOn(H widget) {
+		widget.addMouseOverHandler(this);
+		widget.addMouseOutHandler(this);
 	}
 }

@@ -19,6 +19,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
 
 /**
  * Interface for objects that can be lazily initialized.
+ * 
+ * @since 1.0
  */
 public interface Initializable {
 	/**

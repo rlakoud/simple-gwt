@@ -18,13 +18,15 @@ package com.googlecode.simplegwt.client.ui.initialization;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * Handler for <code>InitializationEvent</code>s.
+ * Handler for {@link InitializationEvent}s.
+ * 
+ * @since 1.0
  */
 public interface InitializationEventHandler extends EventHandler {
 	/**
-	 * Called when an <code>InitializationEvent</code> occurs.
+	 * Called when an {@link InitializationEvent} occurs.
 	 * 
-	 * @param event
+	 * @param event the event that occurred
 	 */
 	void onInitialize(final InitializationEvent event);
 }
