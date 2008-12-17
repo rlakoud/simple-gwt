@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright 2008 Isaac Truett. 
+	
+	Licensed under the Apache License,
+	Version 2.0 (the "License"); you may not use this file except in
+	compliance with the License. You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+	applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+	CONDITIONS OF ANY KIND, either express or implied. See the License for
+	the specific language governing permissions and limitations under the
+	License.
+-->
+<project name="SimpleGWT" default="build-core">
+	<target name="init">
+		<property name="build.props" value="build.properties" />
+		<property file="${build.props}" />
+
+		<property name="tmp.dir" value="tmp" />
+		<property name="bin.core.dir" value="${tmp.dir}/bin/core" />
+		<property name="bin.demo.dir" value="${tmp.dir}/bin/demo" />
+		<property name="javac.deprecation" value="on" />
+		<property name="javac.source" value="1.5" />
+		<property name="javac.target" value="1.5" />
+		<property name="src.core.dir" value="${basedir}/../src/core" />
+		<property name="src.demo.dir" value="${basedir}/../src/demo" />
+
+		<property name="javadoc.dir" value="${tmp.dir}/api" />
+
+		<property name="gwtc.vm.maxMemory" value="512m" />
+		<property name="demo.js.style" value="OBFUSCATED" />
+		<property name="demo.out.dir" value="${tmp.dir}/demos" />
+
+		<property name="project.jar.dir" value="${basedir}/dist" />
+		<property name="project.jar.file" value="${project.jar.dir}/simple-gwt.jar" />
+		<property name="project.zip.dir" value="${basedir}/dist" />
+		<property name="project.zip.file" value="${project.zip.dir}/simple-gwt.zip" />
+
+		<property name="ant-contrib.jar" value="lib/ant-contrib-1.0b3.jar" />
+
+		<fail unless="gwt.user.jar" message="${build.props} must define gwt.user.jar." />
+		<fail unless="gwt.dev.jar" message="${build.props} must define gwt.dev.jar." />
+		<fail unless="gwt.incubator.jar" message="${build.props} must define gwt.incubator.jar." />
+
+		<path id="classpath.main">
+			<pathelement location="${src.core.dir}" />
+			<pathelement location="${bin.core.dir}" />
+			<pathelement location="${gwt.user.jar}" />
+			<pathelement location="${gwt.incubator.jar}" />
+		</path>
+
+		<property name="classpath.main" refid="classpath.main" />
+
+		<echo>gwt.user.jar:	${gwt.user.jar}</echo>
+		<echo>gwt.dev.jar:	${gwt.dev.jar}</echo>
+		<echo>gwt.incubator.jar: 	${gwt.incubator.jar}</echo>
+		<echo>classpath.main:	${classpath.main}</echo>
+	</target>
+	<target name="compile-core" depends="init">
+		<mkdir dir="${bin.core.dir}" />
+		<javac classpathref="classpath.main"
+		       srcdir="${src.core.dir}"
+		       destdir="${bin.core.dir}"
+		       deprecation="${javac.deprecation}"
+		       source="${javac.source}"
+		       target="${javac.target}">
+		</javac>
+	</target>
+	<target name="compile-demo" depends="compile-core">
+		<mkdir dir="${bin.demo.dir}" />
+		<javac classpathref="classpath.main"
+		       srcdir="${src.demo.dir}"
+		       destdir="${bin.demo.dir}"
+		       deprecation="${javac.deprecation}"
+		       source="${javac.source}"
+		       target="${javac.target}">
+		</javac>
+	</target>
+	<target name="build-core" depends="compile-core">
+		<mkdir dir="${project.jar.dir}" />
+		<jar destfile="${project.jar.file}">
+			<fileset dir="${src.core.dir}" />
+			<fileset dir="${bin.core.dir}" />
+		</jar>
+	</target>
+	<target name="gwtc" depends="init">
+		<taskdef name="gwtc" classname="com.google.ant.GwtCompilerTask">
+			<classpath>
+				<pathelement location="${gwt.user.jar}" />
+				<pathelement location="${gwt.dev.jar}" />
+				<pathelement location="${gwt.incubator.jar}" />
+			</classpath>
+		</taskdef>
+
+		<gwtc src="${src.demo.dir}"
+		      out="${demo.out.dir}"
+		      moduleFile="${gwtc.module.file}"
+		      style="${demo.js.style}"
+		      vmMaxMemory="${gwtc.vm.maxMemory}">
+			<classpath>
+				<pathelement location="${src.demo.dir}" />
+				<path path="${project.jar.file}" />
+				<pathelement location="${gwt.user.jar}" />
+				<pathelement location="${gwt.incubator.jar}" />
+				<pathelement location="${gwt.dev.jar}" />
+			</classpath>
+		</gwtc>
+	</target>
+	<target name="build-demo" depends="compile-demo">
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${ant-contrib.jar}" />
+			</classpath>
+		</taskdef>
+		<foreach target="gwtc" param="gwtc.module.file">
+			<path>
+				<fileset dir="${src.demo.dir}">
+					<include name="**/*.gwt.xml" />
+				</fileset>
+			</path>
+		</foreach>
+	</target>
+	<target name="dist" depends="init">
+		<zip destfile="${project.zip.file}">
+			<fileset file="${project.jar.file}" />
+			<fileset dir="${tmp.dir}">
+				<include name="api/**/*" />
+				<include name="demos/**/*" />
+			</fileset>
+		</zip>
+	</target>
+	<target name="javadoc" depends="init">
+		<javadoc access="protected"
+		         author="false"
+		         classpathref="classpath.main"
+		         destdir="${javadoc.dir}"
+		         doctitle="SimpleGWT API"
+		         nodeprecated="false"
+		         nodeprecatedlist="false"
+		         noindex="false"
+		         nonavbar="false"
+		         notree="false"
+		         source="1.5"
+		         sourcepath="${src.core.dir}"
+		         splitindex="true"
+		         use="true"
+		         version="false">
+			<link href="http://java.sun.com/j2se/1.5.0/docs/api/" />
+			<link href="http://google-web-toolkit.googlecode.com/svn/javadoc/1.5/" />
+		</javadoc>
+	</target>
+</project>
