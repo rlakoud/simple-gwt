@@ -28,28 +28,28 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * A composite handler that toggles a style name suffix when the mouse enters and leaves the target
  * {@link Widget}. The default style name suffix of "hover" can be overridden using the
- * {@link #HoverHandler(String)} constructor.
+ * {@link #HoverStyler(String)} constructor.
  * 
  * @since 1.0
  */
-public class HoverHandler implements MouseOverHandler, MouseOutHandler {
+public class HoverStyler implements MouseOverHandler, MouseOutHandler {
 	private final String styleSuffix;
 
 	/**
-	 * Creates a new <code>HoverHandler</code> with the specified style suffix.
+	 * Creates a new <code>HoverStyler</code> with the specified style suffix.
 	 * 
 	 * @param styleSuffix the style name suffix to be applied to the <code>Widget</code> on mouse
 	 *            over
 	 */
-	public HoverHandler(final String styleSuffix) {
+	public HoverStyler(final String styleSuffix) {
 		super();
 		this.styleSuffix = styleSuffix;
 	}
 
 	/**
-	 * Creates a new <code>HoverHandler</code>.
+	 * Creates a new <code>HoverStyler</code>.
 	 */
-	public HoverHandler() {
+	public HoverStyler() {
 		this("hover");
 	}
 
@@ -81,7 +81,7 @@ public class HoverHandler implements MouseOverHandler, MouseOutHandler {
 	}
 
 	/**
-	 * Registers this <code>HoverHandler</code> as a {@link MouseOverHandler} and a
+	 * Registers this <code>HoverStyler</code> as a {@link MouseOverHandler} and a
 	 * {@link MouseOutHandler} on the specified {@link Widget}.
 	 * 
 	 * @param <H> artificial type comprising the required event hooks

@@ -23,13 +23,13 @@ import com.googlecode.simplegwt.client.ui.CommandButton;
 import com.googlecode.simplegwt.client.ui.CommandLabel;
 import com.googlecode.simplegwt.client.ui.CommandToggleButton;
 import com.googlecode.simplegwt.client.ui.ContextualPopup;
-import com.googlecode.simplegwt.client.ui.HoverHandler;
+import com.googlecode.simplegwt.client.ui.HoverStyler;
 import com.googlecode.simplegwt.client.ui.SimpleTooltip;
 import com.googlecode.simplegwt.client.ui.initialization.InitializationEvent;
 import com.googlecode.simplegwt.client.ui.initialization.InitializationEventHandler;
 
 /**
- * A demo of some simple <code>Widgets</code>, {@link HoverHandler}, and the initialization API.
+ * A demo of some simple <code>Widgets</code>, {@link HoverStyler}, and the initialization API.
  */
 public class SimpleWidgetsDemo implements EntryPoint {
 	/**
@@ -53,7 +53,7 @@ public class SimpleWidgetsDemo implements EntryPoint {
 		        helloWorldCommand, "Goodbye", goodbyeWorldCommand);
 		final ContextualPopup<String> tooltip = new SimpleTooltip("Click to say hi");
 
-		new HoverHandler().registerOn(helloLabel);
+		new HoverStyler().registerOn(helloLabel);
 
 		tooltip.registerOn(helloButton);
 		tooltip.registerOn(helloLabel);
