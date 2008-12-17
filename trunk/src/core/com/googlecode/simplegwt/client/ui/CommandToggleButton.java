@@ -6,7 +6,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.ToggleButton;
 
 /**
- * TODO JavaDoc comment for <code>CommandToggleButton</code>.<br />
+ * A {@link ToggleButton} that executes {@link Command}s when clicked on and off.<br />
  * <h3>CSS Style Rules</h3>
  * <ul>
  * <li>.simpleGwt-CommandToggleButton { }</li>
