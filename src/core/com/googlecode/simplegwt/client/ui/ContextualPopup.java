@@ -17,6 +17,7 @@ package com.googlecode.simplegwt.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseOutHandlers;
 import com.google.gwt.event.dom.client.HasMouseOverHandlers;
@@ -79,7 +80,7 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 
 		private final ContextualPopup<?> contextualPopup;
 
-		private final Timer timer = new Timer() {
+		private final Timer showTimer = new Timer() {
 			@Override
 			public void run() {
 				contextualPopup.show(currentX, currentY);
@@ -94,6 +95,7 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 
 		public void onClick(final ClickEvent event) {
 			contextualPopup.hide();
+			showTimer.cancel();
 		}
 
 		public void onMouseMove(final MouseMoveEvent event) {
@@ -102,12 +104,12 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 		}
 
 		public void onMouseOut(final MouseOutEvent event) {
-			timer.cancel();
+			showTimer.cancel();
 			contextualPopup.hide();
 		}
 
 		public void onMouseOver(final MouseOverEvent event) {
-			timer.schedule(DELAY);
+			showTimer.schedule(DELAY);
 		}
 	}
 
@@ -166,18 +168,20 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 
 	/**
 	 * Registers this <code>ContextualPopup</code> as a {@link MouseOverHandler}, a
-	 * {@link MouseOutHandler}, and a {@link MouseMoveHandler} on the specified {@link Widget}.
+	 * {@link MouseOutHandler}, a {@link MouseMoveHandler}, and a {@link ClickHandler} on the
+	 * specified {@link Widget}.
 	 * 
 	 * @param <H> artificial type comprising the required event hooks
 	 * @param widget the <code>Widget</code> context for the popup
 	 */
-	public <H extends HasMouseOutHandlers & HasMouseOverHandlers & HasMouseMoveHandlers> void registerOn(
+	public <H extends HasMouseOutHandlers & HasMouseOverHandlers & HasMouseMoveHandlers & HasClickHandlers> void registerOn(
 	        final H widget) {
 		final WidgetContextMouseHandler handler = new WidgetContextMouseHandler(
 		        ContextualPopup.this);
 		widget.addMouseOverHandler(handler);
 		widget.addMouseOutHandler(handler);
 		widget.addMouseMoveHandler(handler);
+		widget.addClickHandler(handler);
 	}
 
 	/**
