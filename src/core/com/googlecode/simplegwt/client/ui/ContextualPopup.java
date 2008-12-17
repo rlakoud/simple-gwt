@@ -15,11 +15,11 @@
  */
 package com.googlecode.simplegwt.client.ui;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseOutHandlers;
 import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -34,14 +34,16 @@ import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.googlecode.simplegwt.client.ui.initialization.InitializableComposite;
 
 /**
- * A context-sensitive popup that appears when the user mouses over a <code>Widget</code>. The popup
- * disappears if the user's mouse leaves the popup or if the user clicks on the <code>Widget</code>.
+ * A context-sensitive popup that appears when the user mouses over a {@link Widget}. The popup
+ * disappears if the user's mouse leaves the popup or if the user clicks on the {@link Widget}.
  * 
- * @param <T>
+ * @param <T> the type of value contained in this popup
+ * @since 1.0
  */
 public abstract class ContextualPopup<T> extends InitializableComposite implements HasValue<T>,
         HasMouseOverHandlers, HasMouseOutHandlers {
@@ -68,14 +70,14 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	 * Handles showing the popup when the user mouses over the contextual <code>Widget</code> and
 	 * hiding the popup if the user clicks on the <code>Widget</code>.
 	 */
-	private static final class WidgetContextMouseHandler<T> implements MouseOverHandler,
-	        MouseOutHandler, MouseMoveHandler, MouseDownHandler {
-		protected static final int DELAY = 250;
+	private static final class WidgetContextMouseHandler implements MouseOverHandler,
+	        MouseOutHandler, MouseMoveHandler, ClickHandler {
+		private static final int DELAY = 250;
 
 		private int currentX;
 		private int currentY;
 
-		private final ContextualPopup<T> contextualPopup;
+		private final ContextualPopup<?> contextualPopup;
 
 		private final Timer timer = new Timer() {
 			@Override
@@ -85,42 +87,25 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 			}
 		};
 
-		/**
-		 * Creates a new <code>WidgetContextMouseHandler</code>.
-		 * 
-		 * @param contextualPopup
-		 */
-		public WidgetContextMouseHandler(ContextualPopup<T> contextualPopup) {
+		public WidgetContextMouseHandler(final ContextualPopup<?> contextualPopup) {
 			super();
 			this.contextualPopup = contextualPopup;
 		}
 
-		/**
-		 * @see com.google.gwt.event.dom.client.MouseDownHandler#onMouseDown(com.google.gwt.event.dom.client.MouseDownEvent)
-		 */
-		public void onMouseDown(final MouseDownEvent event) {
+		public void onClick(final ClickEvent event) {
 			contextualPopup.hide();
 		}
 
-		/**
-		 * @see com.google.gwt.event.dom.client.MouseMoveHandler#onMouseMove(com.google.gwt.event.dom.client.MouseMoveEvent)
-		 */
 		public void onMouseMove(final MouseMoveEvent event) {
 			currentX = event.getClientX();
 			currentY = event.getClientY();
 		}
 
-		/**
-		 * @see com.google.gwt.event.dom.client.MouseOutHandler#onMouseOut(com.google.gwt.event.dom.client.MouseOutEvent)
-		 */
 		public void onMouseOut(final MouseOutEvent event) {
 			timer.cancel();
 			contextualPopup.hide();
 		}
 
-		/**
-		 * @see com.google.gwt.event.dom.client.MouseOverHandler#onMouseOver(com.google.gwt.event.dom.client.MouseOverEvent)
-		 */
 		public void onMouseOver(final MouseOverEvent event) {
 			timer.schedule(DELAY);
 		}
@@ -128,24 +113,8 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 
 	private static final int HIDE_DELAY = 500;
 
-	/**
-	 * Registers a <code>ContextualPopup</code> on the specified <code>Widget</code>.
-	 * 
-	 * @param <T>
-	 * @param <H>
-	 * @param widget
-	 * @param contextualPopup
-	 */
-	public static <T, H extends HasMouseOutHandlers & HasMouseOverHandlers & HasMouseMoveHandlers> void registerContextualPopup(
-	        final H widget, final ContextualPopup<T> contextualPopup) {
-		final WidgetContextMouseHandler<T> handler = new WidgetContextMouseHandler<T>(
-		        contextualPopup);
-		widget.addMouseOverHandler(handler);
-		widget.addMouseOutHandler(handler);
-		widget.addMouseMoveHandler(handler);
-	}
-
 	private T value;
+
 	private final Timer hideTimer = new Timer() {
 		@Override
 		public void run() {
@@ -157,9 +126,9 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	private FocusPanel focusPanel;
 
 	/**
-	 * Creates a new ContextualPopup.
+	 * Creates a new <code>ContextualPopup</code>.
 	 * 
-	 * @param value
+	 * @param value the value contained in this popup
 	 */
 	public ContextualPopup(final T value) {
 		super();
@@ -196,6 +165,22 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	}
 
 	/**
+	 * Registers this <code>ContextualPopup</code> as a {@link MouseOverHandler}, a
+	 * {@link MouseOutHandler}, and a {@link MouseMoveHandler} on the specified {@link Widget}.
+	 * 
+	 * @param <H> artificial type comprising the required event hooks
+	 * @param widget the <code>Widget</code> context for the popup
+	 */
+	public <H extends HasMouseOutHandlers & HasMouseOverHandlers & HasMouseMoveHandlers> void registerOn(
+	        final H widget) {
+		final WidgetContextMouseHandler handler = new WidgetContextMouseHandler(
+		        ContextualPopup.this);
+		widget.addMouseOverHandler(handler);
+		widget.addMouseOutHandler(handler);
+		widget.addMouseMoveHandler(handler);
+	}
+
+	/**
 	 * @see com.google.gwt.user.client.ui.HasValue#setValue(java.lang.Object)
 	 */
 	public void setValue(final T value) {
@@ -224,10 +209,10 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	protected abstract void buildPopup(final FocusPanel panel);
 
 	/**
-	 * Creates and configures a new <code>PopupPanel</code>. Override to change
-	 * <code>PopupPanel</code> implementation, disable animation, etc.
+	 * Creates and configures a new {@link PopupPanel}. Override to change {@link PopupPanel}
+	 * implementation, disable animation, etc.
 	 * 
-	 * @return
+	 * @return the contextual {@link PopupPanel}
 	 */
 	protected PopupPanel createPopupPanel() {
 		final DecoratedPopupPanel newPopupPanel = new DecoratedPopupPanel();
@@ -240,8 +225,8 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	 */
 	@Override
 	protected void onInitialize() {
-		focusPanel = new FocusPanel();
 		popupPanel = createPopupPanel();
+		focusPanel = new FocusPanel();
 		popupPanel.add(focusPanel);
 		buildPopup(focusPanel);
 
@@ -250,10 +235,10 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	}
 
 	/**
-	 * Show this ContextualPopup.
+	 * Show the popup.
 	 * 
-	 * @param y
-	 * @param x
+	 * @param y the y coordinate relative to which the popup is shown
+	 * @param x the x coordinate relative to which the popup is shown
 	 */
 	protected void show(final int x, final int y) {
 		getPopupPanel().setPopupPositionAndShow(new PositionCallback() {
@@ -271,11 +256,7 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 		return popupPanel;
 	}
 
-	/**
-	 * Hide this ContextualPopup.
-	 */
 	private void hide() {
 		hideTimer.schedule(HIDE_DELAY);
-
 	}
 }

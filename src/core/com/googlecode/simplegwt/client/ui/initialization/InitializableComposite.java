@@ -21,7 +21,9 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 
 /**
- * Abstract parent class for <code>Composites</code> that can be lazily initialized.
+ * Abstract parent class for {@link Composite}s that can be lazily initialized.
+ * 
+ * @since 1.0
  */
 public abstract class InitializableComposite extends Composite implements Initializable {
 	/**

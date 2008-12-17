@@ -15,27 +15,35 @@
  */
 package com.googlecode.simplegwt.client.ui;
 
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 
 /**
- * A <code>Button</code> that executes a <code>Command</code> when clicked.
+ * A {@link Button} that executes a {@link Command} when clicked.<br />
+ * <h3>CSS Style Rules</h3>
+ * <ul>
+ * <li>.simpleGwt-CommandButton { }</li>
+ * </ul>
+ * 
+ * @since 1.0
  */
 public class CommandButton extends Button {
 	/**
 	 * Creates a new <code>CommandButton</code>.
 	 * 
-	 * @param text
-	 * @param cmd
+	 * @param text the text of the <code>Button</code>
+	 * @param cmd the <code>Command</code> to execute when clicked
 	 */
 	public CommandButton(final String text, final Command cmd) {
 		super(text);
-		this.addMouseUpHandler(new MouseUpHandler() {
-			public void onMouseUp(final MouseUpEvent event) {
+		this.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
 				cmd.execute();
 			}
 		});
+
+		setStylePrimaryName("simpleGwt-CommandButton");
 	}
 }

@@ -16,19 +16,39 @@
 package com.googlecode.simplegwt.client.ui;
 
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 
 /**
- * A simple <code>ContextualPopup</code> that displays a <code>String</code>.
+ * A simple {@link ContextualPopup} that displays a {@link String}.<br />
+ * <h3>CSS Style Rules</h3>
+ * <ul>
+ * <li>.simpleGwt-SimpleTooltip { }</li>
+ * </ul>
+ * 
+ * @since 1.0
  */
 public class SimpleTooltip extends ContextualPopup<String> {
+	private boolean isHtml;
+
 	/**
-	 * Creates a new <code>SimpleTooltip</code>.
+	 * Creates a new {@link SimpleTooltip}.
 	 * 
-	 * @param text
+	 * @param text the text to display in the popup
 	 */
 	public SimpleTooltip(final String text) {
+		this(text, false);
+	}
+
+	/**
+	 * Creates a new {@link SimpleTooltip}.
+	 * 
+	 * @param text the text to display in the popup
+	 * @param isHtml if <code>true</code>, treat the text as HTML
+	 */
+	public SimpleTooltip(final String text, final boolean isHtml) {
 		super(text);
+		this.isHtml = isHtml;
 	}
 
 	/**
@@ -36,6 +56,12 @@ public class SimpleTooltip extends ContextualPopup<String> {
 	 */
 	@Override
 	protected void buildPopup(final FocusPanel focusPanel) {
-		focusPanel.add(new Label(getValue()));
+		if (isHtml) {
+			focusPanel.add(new HTML(getValue()));
+		} else {
+			focusPanel.add(new Label(getValue()));
+		}
+
+		focusPanel.setStylePrimaryName("simpleGwt-SimpleTooltip");
 	}
 }

@@ -18,7 +18,9 @@ package com.googlecode.simplegwt.client.ui.initialization;
 import com.google.gwt.user.client.Command;
 
 /**
- * Initializes an <code>Initializable</code>.
+ * Initializes an {@link Initializable}.
+ * 
+ * @since 1.0
  */
 public class InitializeCommand implements Command {
 	private final Initializable initable;
@@ -26,7 +28,7 @@ public class InitializeCommand implements Command {
 	/**
 	 * Creates a new <code>InitializeCommand</code>.
 	 * 
-	 * @param initable
+	 * @param initable the thing to initialize
 	 */
 	public InitializeCommand(final Initializable initable) {
 		super();

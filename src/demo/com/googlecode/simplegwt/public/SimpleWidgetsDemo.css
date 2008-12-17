@@ -12,12 +12,76 @@
 	the specific language governing permissions and limitations under the
 	License.
 **/
-.gwt-Label {
+.simpleGwt-CommandLabel {
 	font-style: normal;
 	margin: 5px;
 }
 
-.gwt-Label-hover {
+.simpleGwt-CommandLabel-hover {
 	font-style: bold;
 	cursor: pointer;
+}
+
+.simpleGwt-CommandToggleButton {
+	display: table;
+}
+
+.simpleGwt-CommandToggleButton-up,
+.simpleGwt-CommandToggleButton-up-hovering,
+.simpleGwt-CommandToggleButton-up-disabled,
+.simpleGwt-CommandToggleButton-down,
+.simpleGwt-CommandToggleButton-down-hovering,
+.simpleGwt-CommandToggleButton-down-disabled {
+  margin: 0;
+  text-decoration: none;
+  background: url("gwt/standard/images/hborder.png") repeat-x 0px -27px;
+}
+.simpleGwt-CommandToggleButton-up,
+.simpleGwt-CommandToggleButton-up-hovering,
+.simpleGwt-CommandToggleButton-up-disabled {
+  padding: 3px 5px 3px 5px;
+}
+.simpleGwt-CommandToggleButton-up {
+  border: 1px outset #ccc;
+  cursor: pointer;
+  cursor: hand;
+}
+.simpleGwt-CommandToggleButton-up-hovering {
+  border: 1px outset;
+  border-color: #9cf #69e #69e #7af;
+  cursor: pointer;
+  cursor: hand;
+}
+.simpleGwt-CommandToggleButton-up-disabled {
+  border: 1px outset #ccc;
+  cursor: default;
+  opacity: .5;
+  zoom: 1;
+  filter: alpha(opacity=40);
+}
+.simpleGwt-CommandToggleButton-down,
+.simpleGwt-CommandToggleButton-down-hovering,
+.simpleGwt-CommandToggleButton-down-disabled {
+  padding: 4px 4px 2px 6px;
+}
+.simpleGwt-CommandToggleButton-down {
+  background-position: 0 -513px;
+  border: 1px inset #ccc;
+  cursor: pointer;
+  cursor: hand;
+}
+.simpleGwt-CommandToggleButton-down-hovering {
+  background-position: 0 -513px;
+  border: 1px inset;
+  border-color: #9cf #69e #69e #7af;
+  cursor: pointer;
+  cursor: hand;
+}
+.simpleGwt-CommandToggleButton-down-disabled {
+  background-position: 0 -513px;
+  border: 1px inset #ccc;
+  cursor: default;
+  opacity: .5;
+  zoom: 1;
+  filter: alpha(opacity=40);
 }
