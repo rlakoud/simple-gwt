@@ -16,7 +16,9 @@
 	-->
 <module>
 	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.googlecode.simplegwt.combobox.ComboBox" />
 	<inherits name="com.googlecode.simplegwt.command.Command" />
+	<inherits name="com.googlecode.simplegwt.contextualpopup.ContextualPopup" />
 	<inherits name="com.googlecode.simplegwt.initialization.Initialization" />
-	<source path="client" />
+	<inherits name="com.googlecode.simplegwt.style.Style" />
 </module>
