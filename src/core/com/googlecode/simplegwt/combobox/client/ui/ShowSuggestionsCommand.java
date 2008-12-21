@@ -38,6 +38,6 @@ public class ShowSuggestionsCommand implements Command {
 	 * @see com.google.gwt.user.client.Command#execute()
 	 */
 	public void execute() {
-		suggestBox.showSuggestions();
+		suggestBox.showSuggestions("");
 	}
 }

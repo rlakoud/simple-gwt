@@ -16,6 +16,9 @@
 package com.googlecode.simplegwt.combobox.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -27,6 +30,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ImageBundle;
 import com.google.gwt.user.client.ui.SuggestBox;
+import com.googlecode.simplegwt.command.client.CommandClickHandler;
 import com.googlecode.simplegwt.command.client.ui.CommandIcon;
 import com.googlecode.simplegwt.style.client.ui.HoverStyler;
 
@@ -70,12 +74,62 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 	public ComboBox(final Image openIconImage, final ComboBoxOracle<T> oracle) {
 		this.oracle = oracle;
 		suggestBox = new SuggestBox(oracle.getSuggestOracle());
-		openIcon = new CommandIcon(openIconImage, new ShowSuggestionsCommand(suggestBox));
+
+		final ShowSuggestionsCommand command = new ShowSuggestionsCommand(suggestBox);
+
+		openIcon = new CommandIcon(openIconImage, command);
 
 		final HorizontalPanel layout = new HorizontalPanel();
 		final FocusPanel iconWrapper = new FocusPanel();
 		iconWrapper.setStylePrimaryName("openIconWrapper");
 		iconWrapper.add(openIcon);
+		iconWrapper.addClickHandler(new CommandClickHandler(command));
+
+		KeyDownHandler keyDownHandler = new KeyDownHandler() {
+			private int selectedIndex = -1;
+
+			public void onKeyDown(KeyDownEvent event) {
+				boolean navKey = false;
+
+				switch (event.getNativeKeyCode()) {
+					case KeyCodes.KEY_UP:
+						selectedIndex--;
+						navKey = true;
+						break;
+					case KeyCodes.KEY_DOWN:
+						selectedIndex++;
+						navKey = true;
+						break;
+					case KeyCodes.KEY_ESCAPE:
+						suggestBox.hideSuggestions();
+						selectedIndex = -1;
+						break;
+					case KeyCodes.KEY_ENTER:
+					case KeyCodes.KEY_TAB:
+						if (suggestBox.getSuggestionMenuSelectedItemIndex() < 0) {
+							suggestBox.hideSuggestions();
+						} else if (suggestBox.isShowingSuggestions()) {
+							suggestBox.doSelectedItemAction();
+						}
+						break;
+				}
+
+				if (navKey) {
+					if (selectedIndex > -1) {
+						if (!suggestBox.isShowingSuggestions()) {
+							command.execute();
+						}
+
+						suggestBox.selectItem(selectedIndex);
+					} else if (selectedIndex < -1) {
+						selectedIndex = -1;
+					}
+				}
+			}
+		};
+
+		suggestBox.addKeyDownHandler(keyDownHandler);
+		iconWrapper.addKeyDownHandler(keyDownHandler);
 
 		layout.add(suggestBox);
 		layout.add(iconWrapper);
