@@ -16,7 +16,5 @@
 	-->
 <module>
 	<inherits name="com.google.gwt.user.User" />
-	<inherits name="com.googlecode.simplegwt.command.Command" />
-	<inherits name="com.googlecode.simplegwt.initialization.Initialization" />
 	<source path="client" />
 </module>

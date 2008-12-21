@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
-import com.googlecode.simplegwt.client.ui.initialization.InitializableComposite;
+import com.googlecode.simplegwt.initialization.client.ui.InitializableComposite;
 
 /**
  * A context-sensitive popup that appears when the user mouses over a {@link Widget}. The popup
@@ -71,10 +71,8 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	 * Handles showing the popup when the user mouses over the contextual <code>Widget</code> and
 	 * hiding the popup if the user clicks on the <code>Widget</code>.
 	 */
-	private static final class WidgetContextMouseHandler implements MouseOverHandler,
-	        MouseOutHandler, MouseMoveHandler, ClickHandler {
-		private static final int DELAY = 250;
-
+	private final class WidgetContextMouseHandler implements MouseOverHandler, MouseOutHandler,
+	        MouseMoveHandler, ClickHandler {
 		private int currentX;
 		private int currentY;
 
@@ -109,13 +107,17 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 		}
 
 		public void onMouseOver(final MouseOverEvent event) {
-			showTimer.schedule(DELAY);
+			showTimer.schedule(contextualPopup.getShowDelay());
 		}
 	}
 
-	private static final int HIDE_DELAY = 500;
+	private static final int DEFAULT_HIDE_DELAY = 500;
+	private static final int DEFAULT_SHOW_DELAY = 250;
 
 	private T value;
+
+	private int showDelay = DEFAULT_SHOW_DELAY;
+	private int hideDelay = DEFAULT_HIDE_DELAY;
 
 	private final Timer hideTimer = new Timer() {
 		@Override
@@ -225,7 +227,7 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	}
 
 	/**
-	 * @see com.googlecode.simplegwt.client.ui.initialization.InitializableComposite#onInitialize()
+	 * @see com.googlecode.com.googlecode.simplegwt.initialization.client.ui.InitializableComposite#onInitialize()
 	 */
 	@Override
 	protected void onInitialize() {
@@ -261,6 +263,34 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	}
 
 	private void hide() {
-		hideTimer.schedule(HIDE_DELAY);
+		hideTimer.schedule(getHideDelay());
+	}
+
+	/**
+	 * @return the showDelay
+	 */
+	public int getShowDelay() {
+		return showDelay;
+	}
+
+	/**
+	 * @param showDelay the showDelay to set
+	 */
+	public void setShowDelay(final int showDelay) {
+		this.showDelay = showDelay;
+	}
+
+	/**
+	 * @return the hideDelay
+	 */
+	public int getHideDelay() {
+		return hideDelay;
+	}
+
+	/**
+	 * @param hideDelay the hideDelay to set
+	 */
+	public void setHideDelay(final int hideDelay) {
+		this.hideDelay = hideDelay;
 	}
 }

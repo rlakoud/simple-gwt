@@ -13,12 +13,16 @@
  *	See the License for the specific language governing permissions and
  *	limitations under the License.
  */
-package com.googlecode.simplegwt.client.ui.initialization;
+package com.googlecode.simplegwt.initialization.client.ui;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
+import com.googlecode.simplegwt.initialization.client.Initializable;
+import com.googlecode.simplegwt.initialization.client.InitializeCommand;
+import com.googlecode.simplegwt.initialization.client.event.InitializationEvent;
+import com.googlecode.simplegwt.initialization.client.event.InitializationEventHandler;
 
 /**
  * Abstract parent class for {@link Composite}s that can be lazily initialized.
@@ -27,7 +31,7 @@ import com.google.gwt.user.client.ui.Composite;
  */
 public abstract class InitializableComposite extends Composite implements Initializable {
 	/**
-	 * Adds a <code>DeferredCommand</code> to initialize the specified <code>Initializable</code>.
+	 * Adds a {@link DeferredCommand} to initialize the specified {@link Initializable}.
 	 * 
 	 * @param initializable
 	 */
@@ -38,7 +42,7 @@ public abstract class InitializableComposite extends Composite implements Initia
 	private boolean initialized;
 
 	/**
-	 * @see com.googlecode.simplegwt.client.ui.initialization.Initializable#initialize()
+	 * @see com.googlecode.simplegwt.initialization.client.Initializable#initialize()
 	 */
 	public final void initialize() {
 		if (!initialized) {
@@ -53,19 +57,19 @@ public abstract class InitializableComposite extends Composite implements Initia
 	}
 
 	/**
-	 * @see com.googlecode.simplegwt.client.ui.initialization.Initializable#isInitialized()
+	 * @see com.googlecode.simplegwt.initialization.client.Initializable#isInitialized()
 	 */
 	public final boolean isInitialized() {
 		return initialized;
 	}
 
 	/**
-	 * Called when the InitializableComposite is initialized.
+	 * Called when the <code>InitializableComposite</code> is initialized.
 	 */
 	protected abstract void onInitialize();
 
 	/**
-	 * @see com.googlecode.simplegwt.client.ui.initialization.Initializable#addIntializationEventHandler(com.googlecode.simplegwt.client.ui.initialization.InitializationEventHandler)
+	 * @see com.googlecode.simplegwt.initialization.client.Initializable#addIntializationEventHandler(com.googlecode.simplegwt.initialization.client.event.InitializationEventHandler)
 	 */
 	public HandlerRegistration addIntializationEventHandler(InitializationEventHandler handler) {
 		return addHandler(handler, InitializationEvent.getType());

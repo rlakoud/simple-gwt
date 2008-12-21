@@ -13,37 +13,32 @@
  *	See the License for the specific language governing permissions and
  *	limitations under the License.
  */
-package com.googlecode.simplegwt.client.ui;
+package com.googlecode.simplegwt.command.client.ui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Button;
+import com.googlecode.simplegwt.command.client.CommandClickHandler;
 
 /**
- * A {@link Label} that executes a {@link Command} when clicked.<br />
+ * A {@link Button} that executes a {@link Command} when clicked.<br />
  * <h3>CSS Style Rules</h3>
  * <ul>
- * <li>.simpleGwt-CommandLabel { }</li>
+ * <li>.simpleGwt-CommandButton { }</li>
  * </ul>
  * 
  * @since 1.0
  */
-public class CommandLabel extends Label {
+public class CommandButton extends Button {
 	/**
-	 * Creates a new <code>CommandLabel</code>.
+	 * Creates a new <code>CommandButton</code>.
 	 * 
 	 * @param text the text of the <code>Button</code>
-	 * @param cmd the <code>Command</code> to execute when clicked
+	 * @param command the <code>Command</code> to execute when clicked
 	 */
-	public CommandLabel(final String text, final Command cmd) {
+	public CommandButton(final String text, final Command command) {
 		super(text);
-		this.addClickHandler(new ClickHandler() {
-			public void onClick(final ClickEvent event) {
-				cmd.execute();
-			}
-		});
+		this.addClickHandler(new CommandClickHandler(command));
 
-		setStylePrimaryName("simpleGwt-CommandLabel");
+		setStylePrimaryName("simpleGwt-CommandButton");
 	}
 }
