@@ -20,6 +20,9 @@ import static com.google.gwt.event.dom.client.KeyCodes.KEY_ENTER;
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_TAB;
 import static com.google.gwt.event.dom.client.KeyCodes.KEY_UP;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.google.gwt.event.dom.client.HandlesAllKeyEvents;
 import com.google.gwt.event.dom.client.HasAllKeyHandlers;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -43,9 +46,6 @@ import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * A {@link SuggestBox} is a text box or text area which displays a pre-configured set of selections
@@ -825,11 +825,51 @@ public class SuggestBox extends Composite implements HasText, HasFocus, HasAnima
 		}
 	}
 
-	private void showSuggestions(String query) {
+	/**
+	 * Show suggestions for the specified query. Does not do anything unless suggest box is attached
+	 * to DOM.
+	 * 
+	 * @param query
+	 */
+	public void showSuggestions(String query) {
 		if (query.length() == 0) {
 			oracle.requestDefaultSuggestions(new Request(null, limit), callback);
 		} else {
 			oracle.requestSuggestions(new Request(query, limit), callback);
 		}
+	}
+
+	/**
+	 * Selects the suggestion at the specified index in the suggestion menu.
+	 * 
+	 * @param index
+	 */
+	public void selectItem(int index) {
+		suggestionMenu.selectItem(index);
+	}
+
+	/**
+	 * True if the suggestion menu is currently visible.
+	 * 
+	 * @return
+	 */
+	public boolean isShowingSuggestions() {
+		return suggestionPopup.isAttached();
+	}
+
+	/**
+	 * Returns the index of the currently highlighted menu item.
+	 * 
+	 * @return
+	 */
+	public int getSuggestionMenuSelectedItemIndex() {
+		return suggestionMenu.getSelectedItemIndex();
+	}
+
+	/**
+	 * Causes the currently highlighted menu item to be selected.
+	 */
+	public void doSelectedItemAction() {
+		suggestionMenu.doSelectedItemAction();
 	}
 }
