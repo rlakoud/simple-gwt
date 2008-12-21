@@ -1,0 +1,112 @@
+.simpleGwt-ComboBox input {
+	border: none;	
+}
+	
+.simpleGwt-ComboBox {
+	border: 1px solid black;
+}
+
+.simpleGwt-ComboBox .simpleGwt-CommandIcon {
+	margin: 4px 2px 2px 2px;
+}
+
+
+.gwt-SuggestBox {
+  padding: 2px;
+}
+.gwt-SuggestBoxPopup {
+  margin-left: 0px;
+}
+.gwt-SuggestBoxPopup .item {
+  padding: 2px 6px;
+  color: #424242;
+  cursor: default;
+  width: 146px;
+}
+.gwt-SuggestBoxPopup .item-selected {
+  background: #b7d6f6;
+}
+.gwt-SuggestBoxPopup .suggestPopupContent {
+  background: white;
+  border: 1px solid black;
+}
+.gwt-SuggestBoxPopup .suggestPopupTopCenter {
+  background: none;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupBottomCenter {
+  background: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupBottomCenter {
+  filter: none;
+}
+.gwt-SuggestBoxPopup .suggestPopupMiddleLeft {
+  background: none;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupMiddleRight {
+  background: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupMiddleRight {
+  filter: none;
+}
+.gwt-SuggestBoxPopup .suggestPopupTopLeftInner {
+  width: 0px;
+  height: 5px;
+  zoom: 1;  
+}
+.gwt-SuggestBoxPopup .suggestPopupTopRightInner {
+  width: 8px;
+  height: 5px;
+  zoom: 1;
+}
+.gwt-SuggestBoxPopup .suggestPopupBottomLeftInner {
+  width: 0px;
+  height: 8px;
+  zoom: 1;
+}
+.gwt-SuggestBoxPopup .suggestPopupBottomRightInner {
+  width: 8px;
+  height: 8px;
+  zoom: 1;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupTopLeft {
+  background: none;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupTopRight {
+  background: none;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupBottomLeft {
+  background: none;
+}
+html>body .gwt-SuggestBoxPopup .suggestPopupBottomRight {
+  background: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupTopLeftInner {
+  width: 0px;
+  height: 28px;
+  margin-top: -23px;
+  overflow: hidden;
+  filter: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupTopRightInner {
+  width: 13px;
+  height: 28px;
+  margin-left: -5px;
+  margin-top: -23px;
+  overflow: hidden;
+  filter: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupBottomLeftInner {
+  width: 0px;
+  height: 36px;
+  margin-top: -28px;
+  overflow: hidden;
+  filter: none;
+}
+* html .gwt-SuggestBoxPopup .suggestPopupBottomRightInner {
+  width: 13px;
+  height: 36px;
+  margin-left: -5px;
+  margin-top: -28px;
+  overflow: hidden;
+  filter: none;
+}
