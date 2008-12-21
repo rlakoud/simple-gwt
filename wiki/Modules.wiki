@@ -1,8 +1,6 @@
 #summary Index of SimpleGWT modules.
 #labels Featured
 
-= Modules =
-
   * [ComboBoxModule ComboBox]
   * [CommandModule Command]
   * [ContextualPopupModule ContextualPopup]
