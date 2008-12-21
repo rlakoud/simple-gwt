@@ -13,37 +13,31 @@
  *	See the License for the specific language governing permissions and
  *	limitations under the License.
  */
-package com.googlecode.simplegwt.client.ui;
+package com.googlecode.simplegwt.command.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.Button;
 
 /**
- * A {@link Button} that executes a {@link Command} when clicked.<br />
- * <h3>CSS Style Rules</h3>
- * <ul>
- * <li>.simpleGwt-CommandButton { }</li>
- * </ul>
- * 
- * @since 1.0
+ * A {@link ClickHandler} that executes a {@link Command}.
  */
-public class CommandButton extends Button {
-	/**
-	 * Creates a new <code>CommandButton</code>.
-	 * 
-	 * @param text the text of the <code>Button</code>
-	 * @param cmd the <code>Command</code> to execute when clicked
-	 */
-	public CommandButton(final String text, final Command cmd) {
-		super(text);
-		this.addClickHandler(new ClickHandler() {
-			public void onClick(final ClickEvent event) {
-				cmd.execute();
-			}
-		});
+public final class CommandClickHandler implements ClickHandler {
+	private final Command command;
 
-		setStylePrimaryName("simpleGwt-CommandButton");
+	/**
+	 * Creates a new <code>CommandClickHandler</code>.
+	 * 
+	 * @param command
+	 */
+	public CommandClickHandler(final Command command) {
+		this.command = command;
+	}
+
+	/**
+	 * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+	 */
+	public void onClick(final ClickEvent event) {
+		command.execute();
 	}
 }

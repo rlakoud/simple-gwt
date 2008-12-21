@@ -19,14 +19,14 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.googlecode.simplegwt.client.ui.CommandButton;
-import com.googlecode.simplegwt.client.ui.CommandLabel;
-import com.googlecode.simplegwt.client.ui.CommandToggleButton;
 import com.googlecode.simplegwt.client.ui.ContextualPopup;
 import com.googlecode.simplegwt.client.ui.HoverStyler;
 import com.googlecode.simplegwt.client.ui.SimpleTooltip;
-import com.googlecode.simplegwt.client.ui.initialization.InitializationEvent;
-import com.googlecode.simplegwt.client.ui.initialization.InitializationEventHandler;
+import com.googlecode.simplegwt.command.client.ui.CommandButton;
+import com.googlecode.simplegwt.command.client.ui.CommandLabel;
+import com.googlecode.simplegwt.command.client.ui.CommandToggleButton;
+import com.googlecode.simplegwt.initialization.client.event.InitializationEvent;
+import com.googlecode.simplegwt.initialization.client.event.InitializationEventHandler;
 
 /**
  * A demo of some simple <code>Widgets</code>, {@link HoverStyler}, and the initialization API.

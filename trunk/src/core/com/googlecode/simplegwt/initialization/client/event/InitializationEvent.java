@@ -13,9 +13,10 @@
  *	See the License for the specific language governing permissions and
  *	limitations under the License.
  */
-package com.googlecode.simplegwt.client.ui.initialization;
+package com.googlecode.simplegwt.initialization.client.event;
 
 import com.google.gwt.event.shared.GwtEvent;
+import com.googlecode.simplegwt.initialization.client.Initializable;
 
 /**
  * Event that occurs when an {@link Initializable} is initialized.
