@@ -85,7 +85,7 @@
 			<fileset dir="${bin.core.dir}" />
 		</jar>
 	</target>
-	<target name="gwtc" depends="init">
+	<target name="gwtc" depends="init,build-core">
 		<taskdef name="gwtc" classname="com.google.ant.GwtCompilerTask">
 			<classpath>
 				<pathelement location="${gwt.user.jar}" />
@@ -108,13 +108,24 @@
 			</classpath>
 		</gwtc>
 	</target>
-	<target name="build-demo" depends="compile-demo">
+	<target name="build-demo" depends="gwtc">
+		<concat destfile="${demo.out.dir}/index.html" append="true">
+			<filterchain>
+				<replaceregex flags="g" pattern="\\" replace="/" />
+				<replaceregex pattern="\('.*/src/" replace="('" />
+			</filterchain>
+&lt;script&gt;writeDemoLink('${gwtc.module.file}');&lt;/script&gt;
+		</concat>
+	</target>
+	<target name="build-demos" depends="compile-demo">
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
 			<classpath>
 				<pathelement location="${ant-contrib.jar}" />
 			</classpath>
 		</taskdef>
-		<foreach target="gwtc" param="gwtc.module.file">
+		<delete file="${demo.out.dir}/index.html" />
+		<copy file="demoindex.template" tofile="${demo.out.dir}/index.html" />
+		<foreach target="build-demo" param="gwtc.module.file">
 			<path>
 				<fileset dir="${src.demo.dir}">
 					<include name="**/*.gwt.xml" />
@@ -122,7 +133,7 @@
 			</path>
 		</foreach>
 	</target>
-	<target name="dist" depends="init">
+	<target name="dist" depends="init,javadoc,build-core,build-demos">
 		<zip destfile="${project.zip.file}">
 			<fileset file="${project.jar.file}" />
 			<fileset dir="${tmp.dir}">
