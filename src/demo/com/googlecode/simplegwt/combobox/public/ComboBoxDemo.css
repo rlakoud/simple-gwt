@@ -7,9 +7,12 @@
 }
 
 .simpleGwt-ComboBox .simpleGwt-CommandIcon {
-	margin: 4px 2px 2px 2px;
+	margin: 4px 2px 5px 2px;
 }
 
+.simpleGwt-ComboBox .openIconWrapper-hover {
+	background: #b7d6f6;
+}
 
 .gwt-SuggestBox {
   padding: 2px;

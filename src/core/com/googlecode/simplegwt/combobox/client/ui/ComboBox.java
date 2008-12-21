@@ -21,13 +21,14 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ImageBundle;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.googlecode.simplegwt.command.client.ui.CommandIcon;
+import com.googlecode.simplegwt.style.client.ui.HoverStyler;
 
 /**
  * An enhanced {@link SuggestBox} that adds a {@link CommandIcon} which allows the user to display
@@ -45,7 +46,7 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 		 * 
 		 * @return the image
 		 */
-		@Resource("openIcon.gif")
+		@Resource("openIcon.png")
 		AbstractImagePrototype getOpenIcon();
 	}
 
@@ -71,14 +72,19 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 		suggestBox = new SuggestBox(oracle.getSuggestOracle());
 		openIcon = new CommandIcon(openIconImage, new ShowSuggestionsCommand(suggestBox));
 
-		final Panel wrapper = new HorizontalPanel();
+		final HorizontalPanel layout = new HorizontalPanel();
+		final FocusPanel iconWrapper = new FocusPanel();
+		iconWrapper.setStylePrimaryName("openIconWrapper");
+		iconWrapper.add(openIcon);
 
-		wrapper.add(suggestBox);
-		wrapper.add(openIcon);
+		layout.add(suggestBox);
+		layout.add(iconWrapper);
 
-		initWidget(wrapper);
+		initWidget(layout);
 
 		setStylePrimaryName("simpleGwt-ComboBox");
+
+		new HoverStyler().registerOn(iconWrapper);
 	}
 
 	/**
