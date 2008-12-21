@@ -1,0 +1,10 @@
+#summary Index of SimpleGWT modules.
+#labels Featured
+
+= Modules =
+
+  * [ComboBoxModule ComboBox]
+  * [CommandModule Command]
+  * [ContextualPopupModule ContextualPopup]
+  * [InitializationModule Initialization]
+  * [StyleModule Style]
