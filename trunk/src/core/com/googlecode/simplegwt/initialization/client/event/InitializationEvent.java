@@ -47,7 +47,7 @@ public class InitializationEvent extends GwtEvent<InitializationEventHandler> {
 	 * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
 	 */
 	@Override
-	protected Type<InitializationEventHandler> getAssociatedType() {
+	public Type<InitializationEventHandler> getAssociatedType() {
 		return TYPE;
 	}
 }

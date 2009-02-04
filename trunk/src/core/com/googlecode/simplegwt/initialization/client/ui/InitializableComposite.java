@@ -15,7 +15,6 @@
  */
 package com.googlecode.simplegwt.initialization.client.ui;
 
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
@@ -48,11 +47,8 @@ public abstract class InitializableComposite extends Composite implements Initia
 		if (!initialized) {
 			initialized = true;
 			onInitialize();
-			HandlerManager handlers = getHandlers();
 
-			if (handlers != null) {
-				handlers.fireEvent(new InitializationEvent());
-			}
+			fireEvent(new InitializationEvent());
 		}
 	}
 
