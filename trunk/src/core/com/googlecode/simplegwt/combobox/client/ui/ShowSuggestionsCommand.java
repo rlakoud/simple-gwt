@@ -16,20 +16,21 @@
 package com.googlecode.simplegwt.combobox.client.ui;
 
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.SimpleGwtSuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 
 /**
  * A {@link Command} that, when executed, hides a {@link SuggestBox}'s list of suggestions.
  */
 public class ShowSuggestionsCommand implements Command {
-	private final SuggestBox suggestBox;
+	private final SimpleGwtSuggestBox suggestBox;
 
 	/**
 	 * Creates a new <code>ShowSuggestionsCommand</code>.
 	 * 
 	 * @param suggestBox
 	 */
-	public ShowSuggestionsCommand(final SuggestBox suggestBox) {
+	public ShowSuggestionsCommand(final SimpleGwtSuggestBox suggestBox) {
 		super();
 		this.suggestBox = suggestBox;
 	}

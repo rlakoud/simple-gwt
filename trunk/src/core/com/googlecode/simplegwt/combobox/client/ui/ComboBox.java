@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ImageBundle;
+import com.google.gwt.user.client.ui.SimpleGwtSuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.googlecode.simplegwt.command.client.CommandClickHandler;
 import com.googlecode.simplegwt.command.client.ui.CommandIcon;
@@ -59,7 +60,7 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 		        .createImage();
 	}
 
-	private final SuggestBox suggestBox;
+	private final SimpleGwtSuggestBox suggestBox;
 
 	private final CommandIcon openIcon;
 
@@ -73,7 +74,7 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 	 */
 	public ComboBox(final Image openIconImage, final ComboBoxOracle<T> oracle) {
 		this.oracle = oracle;
-		suggestBox = new SuggestBox(oracle.getSuggestOracle());
+		suggestBox = new SimpleGwtSuggestBox(oracle.getSuggestOracle());
 
 		final ShowSuggestionsCommand command = new ShowSuggestionsCommand(suggestBox);
 
@@ -101,14 +102,14 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 						navKey = true;
 						break;
 					case KeyCodes.KEY_ESCAPE:
-						suggestBox.hideSuggestions();
+						suggestBox.hideSuggestionList();
 						selectedIndex = -1;
 						break;
 					case KeyCodes.KEY_ENTER:
 					case KeyCodes.KEY_TAB:
 						if (suggestBox.getSuggestionMenuSelectedItemIndex() < 0) {
-							suggestBox.hideSuggestions();
-						} else if (suggestBox.isShowingSuggestions()) {
+							suggestBox.hideSuggestionList();
+						} else if (suggestBox.isSuggestionListShowing()) {
 							suggestBox.doSelectedItemAction();
 						}
 						break;
@@ -116,7 +117,7 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 
 				if (navKey) {
 					if (selectedIndex > -1) {
-						if (!suggestBox.isShowingSuggestions()) {
+						if (!suggestBox.isSuggestionListShowing()) {
 							command.execute();
 						}
 
@@ -181,6 +182,6 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 	 * @see com.google.gwt.event.logical.shared.HasValueChangeHandlers#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)
 	 */
 	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-		return getHandlers().addHandler(ValueChangeEvent.getType(), handler);
+		return addHandler(handler, ValueChangeEvent.getType());
 	}
 }
