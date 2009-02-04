@@ -144,21 +144,21 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	 * @see com.google.gwt.event.dom.client.HasMouseOutHandlers#addMouseOutHandler(com.google.gwt.event.dom.client.MouseOutHandler)
 	 */
 	public HandlerRegistration addMouseOutHandler(final MouseOutHandler handler) {
-		return getHandlers().addHandler(MouseOutEvent.getType(), handler);
+		return addHandler(handler, MouseOutEvent.getType());
 	}
 
 	/**
 	 * @see com.google.gwt.event.dom.client.HasMouseOverHandlers#addMouseOverHandler(com.google.gwt.event.dom.client.MouseOverHandler)
 	 */
 	public HandlerRegistration addMouseOverHandler(final MouseOverHandler handler) {
-		return getHandlers().addHandler(MouseOverEvent.getType(), handler);
+		return addHandler(handler, MouseOverEvent.getType());
 	}
 
 	/**
 	 * @see com.google.gwt.event.logical.shared.HasValueChangeHandlers#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)
 	 */
 	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-		return getHandlers().addHandler(ValueChangeEvent.getType(), handler);
+		return addHandler(handler, ValueChangeEvent.getType());
 	}
 
 	/**
