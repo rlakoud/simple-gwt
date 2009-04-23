@@ -15,6 +15,9 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.google.gwt.event.dom.client.HandlesAllKeyEvents;
 import com.google.gwt.event.dom.client.HasAllKeyHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -37,9 +40,6 @@ import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * A {@link SuggestBox} is a text box or text area which displays a pre-configured set of selections
@@ -340,23 +340,23 @@ public class SuggestBox extends Composite implements HasText, HasFocus, HasAnima
 	}
 
 	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
-		return addDomHandler(handler, KeyDownEvent.getType());
+		return getWidget().addHandler(handler, KeyDownEvent.getType());
 	}
 
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return addDomHandler(handler, KeyPressEvent.getType());
+		return getWidget().addHandler(handler, KeyPressEvent.getType());
 	}
 
 	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
-		return addDomHandler(handler, KeyUpEvent.getType());
+		return getWidget().addHandler(handler, KeyUpEvent.getType());
 	}
 
 	public HandlerRegistration addSelectionHandler(SelectionHandler<Suggestion> handler) {
-		return addHandler(handler, SelectionEvent.getType());
+		return getWidget().addHandler(handler, SelectionEvent.getType());
 	}
 
 	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
-		return addHandler(handler, ValueChangeEvent.getType());
+		return getWidget().addHandler(handler, ValueChangeEvent.getType());
 	}
 
 	/**
