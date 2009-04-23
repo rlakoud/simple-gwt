@@ -16,6 +16,8 @@
 package com.googlecode.simplegwt.combobox.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -31,7 +33,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ImageBundle;
 import com.google.gwt.user.client.ui.SimpleGwtSuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox;
-import com.googlecode.simplegwt.command.client.CommandClickHandler;
 import com.googlecode.simplegwt.command.client.ui.CommandIcon;
 import com.googlecode.simplegwt.style.client.ui.HoverStyler;
 
@@ -66,6 +67,17 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 
 	private final ComboBoxOracle<T> oracle;
 
+	private int selectedIndex = -1;
+
+	/**
+	 * Creates a new <code>ComboBox</code>.
+	 * 
+	 * @param oracle
+	 */
+	public ComboBox(final ComboBoxOracle<T> oracle) {
+		this(getDefaultOpenIcon(), oracle);
+	}
+
 	/**
 	 * Creates a new <code>ComboBox</code>.
 	 * 
@@ -84,13 +96,21 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 		final FocusPanel iconWrapper = new FocusPanel();
 		iconWrapper.setStylePrimaryName("openIconWrapper");
 		iconWrapper.add(openIcon);
-		iconWrapper.addClickHandler(new CommandClickHandler(command));
+		iconWrapper.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				selectedIndex = -1;
+				iconWrapper.setFocus(true);
+				command.execute();
+			}
+		});
 
 		KeyDownHandler keyDownHandler = new KeyDownHandler() {
-			private int selectedIndex = -1;
-
 			public void onKeyDown(KeyDownEvent event) {
 				boolean navKey = false;
+
+				if (!suggestBox.isSuggestionListShowing()) {
+					selectedIndex = -1;
+				}
 
 				switch (event.getNativeKeyCode()) {
 					case KeyCodes.KEY_UP:
@@ -103,7 +123,6 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 						break;
 					case KeyCodes.KEY_ESCAPE:
 						suggestBox.hideSuggestionList();
-						selectedIndex = -1;
 						break;
 					case KeyCodes.KEY_ENTER:
 					case KeyCodes.KEY_TAB:
@@ -125,6 +144,9 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 					} else if (selectedIndex < -1) {
 						selectedIndex = -1;
 					}
+
+					event.stopPropagation();
+					event.preventDefault();
 				}
 			}
 		};
@@ -143,12 +165,10 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 	}
 
 	/**
-	 * Creates a new <code>ComboBox</code>.
-	 * 
-	 * @param oracle
+	 * @see com.google.gwt.event.logical.shared.HasValueChangeHandlers#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)
 	 */
-	public ComboBox(final ComboBoxOracle<T> oracle) {
-		this(getDefaultOpenIcon(), oracle);
+	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
+		return addHandler(handler, ValueChangeEvent.getType());
 	}
 
 	/**
@@ -176,12 +196,5 @@ public class ComboBox<T> extends Composite implements HasValue<T> {
 		if (fireEvents) {
 			ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
 		}
-	}
-
-	/**
-	 * @see com.google.gwt.event.logical.shared.HasValueChangeHandlers#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)
-	 */
-	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
-		return addHandler(handler, ValueChangeEvent.getType());
 	}
 }
