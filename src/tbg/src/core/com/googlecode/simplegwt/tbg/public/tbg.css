@@ -1,0 +1,181 @@
+/**
+	Copyright 2009 Isaac Truett. 
+	
+	Licensed under the Apache License, Version 2.0 (the "License"); 
+	you may not use this file except in compliance with the License. 
+	You may obtain a copy of the License at
+	
+		http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software 
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+	See the License for the specific language governing permissions and
+	limitations under the License.
+*/
+
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+.simpleGwt-CommandLabel {
+	font-style: normal;
+	margin: 5px;
+}
+
+.simpleGwt-CommandLabel-hover {
+	font-style: bold;
+	cursor: pointer;
+}
+
+.simpleGwt-CommandToggleButton {
+	display: table;
+}
+
+.simpleGwt-CommandToggleButton-up,
+.simpleGwt-CommandToggleButton-up-hovering,
+.simpleGwt-CommandToggleButton-up-disabled,
+.simpleGwt-CommandToggleButton-down,
+.simpleGwt-CommandToggleButton-down-hovering,
+.simpleGwt-CommandToggleButton-down-disabled {
+	margin: 0;
+	text-decoration: none;
+	background: url("gwt/standard/images/hborder.png") repeat-x 0px -27px;
+}
+
+.simpleGwt-CommandToggleButton-up,
+.simpleGwt-CommandToggleButton-up-hovering,
+.simpleGwt-CommandToggleButton-up-disabled {
+	padding: 3px 5px 3px 5px;
+}
+
+.simpleGwt-CommandToggleButton-up {
+	border: 1px outset #ccc;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.simpleGwt-CommandToggleButton-up-hovering {
+	border: 1px outset;
+	border-color: #9cf #69e #69e #7af;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.simpleGwt-CommandToggleButton-up-disabled {
+	border: 1px outset #ccc;
+	cursor: default;
+	opacity: .5;
+	zoom: 1;
+	filter: alpha(opacity = 40);
+}
+
+.simpleGwt-CommandToggleButton-down,
+.simpleGwt-CommandToggleButton-down-hovering,
+.simpleGwt-CommandToggleButton-down-disabled {
+	padding: 4px 4px 2px 6px;
+}
+
+.simpleGwt-CommandToggleButton-down {
+	background-position: 0 -513px;
+	border: 1px inset #ccc;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.simpleGwt-CommandToggleButton-down-hovering {
+	background-position: 0 -513px;
+	border: 1px inset;
+	border-color: #9cf #69e #69e #7af;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.simpleGwt-CommandToggleButton-down-disabled {
+	background-position: 0 -513px;
+	border: 1px inset #ccc;
+	cursor: default;
+	opacity: .5;
+	zoom: 1;
+	filter: alpha(opacity = 40);
+}
+
+.page {
+	background-color: #36d;
+	min-height: 100%;
+	position: relative;
+}
+
+.pageHeader,.pageFooterContent {
+	background-color: #7d7;
+	padding: 1px 5px 5px 15px;
+}
+
+.pageFooter {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:3em;
+}
+
+.pageHeader h1 {
+	font-size: 24pt;
+	color: blue;
+	margin-bottom: 10px;
+}
+
+.pageHeader h2 {
+	font-size: 10pt;
+	color: #666;
+}
+
+.pageHeader h2 a {
+	color: #007;
+}
+
+.pageContent {
+	margin: 15px auto 15px auto;
+	padding-bottom: 3em;
+}
+
+.tbg-help {
+	float: right;
+	cursor: pointer;
+}
+
+.tbg-LoginWidget {
+	float: left;
+}
+
+.tbg-ButtonGrid {
+	float: right;
+	margin: 0px auto;
+}
+
+.gwt-DecoratorPanel {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.gwt-DecoratorPanel .middleCenter,
+.tbg-GridControls,
+.tbg-ButtonGrid {
+	background-color: #D0E4F6;
+}
+
+.gwt-TextBox {
+	width: 5em;
+}
+
+.tbg-GridControls {
+	clear: left;
+	float: left;
+	width: 6em;
+}
+
+.tbg-help-dialog {
+	width: 250px;
+}

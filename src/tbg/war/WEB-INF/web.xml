@@ -1,0 +1,18 @@
+<!DOCTYPE web-app PUBLIC 
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<servlet>
+		<servlet-name>UserPreferences</servlet-name>
+		<servlet-class>com.googlecode.simplegwt.tbg.server.UserPreferenceServlet</servlet-class>
+		<init-param>
+			<param-name>index</param-name>
+			<param-value>/com.googlecode.simplegwt.tbg.Tbg/index.html</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UserPreferences</servlet-name>
+		<url-pattern>/com.googlecode.simplegwt.tbg.Tbg/user</url-pattern>
+	</servlet-mapping>
+</web-app>
