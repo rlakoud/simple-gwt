@@ -87,7 +87,7 @@ public class UserPreferenceServlet extends RemoteServiceServlet implements UserP
 
 		final PersistenceManager pm = factory.getPersistenceManager();
 
-		PersistentPreferences persistentPreferences = getOrCreatePreferences(user);
+		final PersistentPreferences persistentPreferences = getOrCreatePreferences(user);
 
 		persistentPreferences.setRows(prefs.getRows());
 		persistentPreferences.setColumns(prefs.getColumns());
