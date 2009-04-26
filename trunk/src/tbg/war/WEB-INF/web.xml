@@ -7,12 +7,12 @@
 		<servlet-class>com.googlecode.simplegwt.tbg.server.UserPreferenceServlet</servlet-class>
 		<init-param>
 			<param-name>index</param-name>
-			<param-value>/com.googlecode.simplegwt.tbg.Tbg/index.html</param-value>
+			<param-value>/tbg/index.html</param-value>
 		</init-param>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>UserPreferences</servlet-name>
-		<url-pattern>/com.googlecode.simplegwt.tbg.Tbg/user</url-pattern>
+		<url-pattern>/tbg/user</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -127,4 +127,12 @@ public class PersistentPreferences {
 	public void setUpText(String upText) {
 		this.upText = upText;
 	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return rows + "x" + columns + " (" + upText + "/" + downText + ")";
+	}
 }
