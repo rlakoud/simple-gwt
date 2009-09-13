@@ -71,7 +71,7 @@ public class HoverStyler implements MouseOverHandler, MouseOutHandler {
 	 * Casts the event source to a <code>UIObject</code>.
 	 * 
 	 * @param event
-	 * @return
+	 * @return the event source
 	 */
 	private UIObject getUIObjectFromEvent(final GwtEvent<?> event) {
 		final Object source = event.getSource();

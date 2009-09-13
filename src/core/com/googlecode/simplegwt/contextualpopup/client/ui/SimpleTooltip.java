@@ -52,7 +52,7 @@ public class SimpleTooltip extends ContextualPopup<String> {
 	}
 
 	/**
-	 * @see com.googlecode.simplegwt.client.ui.ContextualPopup#buildPopup(com.google.gwt.user.client.ui.FocusPanel)
+	 * @see com.googlecode.simplegwt.contextualpopup.client.ui.ContextualPopup#buildPopup(com.google.gwt.user.client.ui.FocusPanel)
 	 */
 	@Override
 	protected void buildPopup(final FocusPanel focusPanel) {
