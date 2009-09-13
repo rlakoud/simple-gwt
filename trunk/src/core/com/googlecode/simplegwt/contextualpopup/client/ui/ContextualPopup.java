@@ -227,7 +227,7 @@ public abstract class ContextualPopup<T> extends InitializableComposite implemen
 	}
 
 	/**
-	 * @see com.googlecode.com.googlecode.simplegwt.initialization.client.ui.InitializableComposite#onInitialize()
+	 * @see com.googlecode.simplegwt.initialization.client.ui.InitializableComposite#onInitialize()
 	 */
 	@Override
 	protected void onInitialize() {
